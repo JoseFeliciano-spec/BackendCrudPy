@@ -17,6 +17,7 @@ async def get_current_user_id(authorization: Optional[str] = Header(default=None
     if not authorization or not authorization.lower().startswith("bearer "):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token requerido")
     token = authorization.split(" ", 1)[1]
+    print(token);
     try:
         payload = decode_token(token)
     except jwt.PyJWTError:
@@ -25,7 +26,6 @@ async def get_current_user_id(authorization: Optional[str] = Header(default=None
     if not sub:
         raise HTTPException(status_code=401, detail="Token inválido")
     return sub
-
 
 ProductServiceDep = Annotated[ProductService, Depends(get_product_service)]
 CurrentUserIdDep = Annotated[str, Depends(get_current_user_id)]
