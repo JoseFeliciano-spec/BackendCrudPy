@@ -9,10 +9,11 @@ class UserResponse(BaseModel):
     data: User
     statusCode: int
 
-@router.post("/register", response_model=User, status_code=201)
+@router.post("/register")
 async def register(payload: UserCreate, svc: AuthServiceDep):
     try:
-        return await svc.register(payload)
+        token, data =  await svc.register(payload)
+        return {"access_token": token, "token_type": "bearer", "data": data, "statusCode": status.HTTP_200_OK}
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 

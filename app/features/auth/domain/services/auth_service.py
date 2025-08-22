@@ -7,13 +7,13 @@ class AuthService:
     def __init__(self, repo: IUserRepository):
         self.repo = repo
 
-    async def register(self, payload: UserCreate) -> User:
+    async def register(self, payload: UserCreate) -> Tuple[str,User]:
         existing = await self.repo.get_by_email(payload.email)
         if existing:
             raise ValueError("Email ya registrado")
         hashed = hash_password(payload.password)
         created = await self.repo.create(payload.email, hashed, payload.name)
-        return User(id=created.id, email=created.email, created_at=created.created_at, name=created.name)
+        return create_access_token({"sub": created.id, "email": created.email}), User(id=created.id, email=created.email, created_at=created.created_at, name=created.name)
 
     async def login(self, payload: UserLogin) -> Tuple[str, User]:
         user = await self.repo.get_by_email(payload.email)

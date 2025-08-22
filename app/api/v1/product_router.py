@@ -17,7 +17,6 @@ async def list_products(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100)
 ):
-    print(user_id);
     return await svc.list(user_id, skip, limit)
 
 @router.get("/{product_id}", response_model=ProductOut)
