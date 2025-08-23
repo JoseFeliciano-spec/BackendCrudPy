@@ -3,11 +3,7 @@
 **BackendCrudPy** es un backend **CRUD** (Crear, Leer, Actualizar, Eliminar) desarrollado con **FastAPI** y **MongoDB**.
 Proporciona una **API RESTful** para gestionar productos y usuarios, incluyendo **autenticación basada en JWT**.
 
-Ideal para proyectos que requieran:
-✅ Gestión de usuarios con registro e inicio de sesión.
-✅ Control de acceso mediante tokens **JWT**.
-✅ CRUD de productos.
-✅ Escalabilidad con contenedores **Docker**.
+- [**Link documentación de swagger**](https://backendcrudpy.onrender.com/docs) – Link en producción en Render
 
 ---
 
